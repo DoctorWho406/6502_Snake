@@ -156,6 +156,7 @@ calculate_pos_by_distance:
     AND TOP
     BEQ else_bottom
     LDA POSITION_TO_CALCULATE
+    SEC
     SBC #$10
     STA POSITION_TO_CALCULATE
     RTS
@@ -189,6 +190,7 @@ calculate_pos_by_distance:
     AND BITMASK_VALUES
     BNE not_at_end
     LDA POSITION_TO_CALCULATE
+    SEC
     SBC #$10
     STA POSITION_TO_CALCULATE
     not_at_end:
@@ -210,6 +212,7 @@ update_distances:
     LDA DIRECTION
     JSR get_opposite_direction
     LDA MAX
+    SEC
     SBC TAIL_PAGE_POSITION
     TAY
     ; now in Y i have snake length
