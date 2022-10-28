@@ -129,10 +129,10 @@ game:
     TAX
     LDA $0200, X
     CMP SNAKE_COLOR
-    ;                              TODO Check if not is tail
+    ;                               TODO Check if not is tail
     BEQ game_over
     CMP APPLE_COLOR
-    ;                              TODO Apple
+    ;                               TODO Apple
     ; ------------------------- DRAW ----------------------------
     ; clear old tail
     LDX TAIL_POSITION
@@ -201,8 +201,8 @@ update_distances:
     LDA TAIL_PAGE_POSITION
     EOR MAX
     BNE update_tail_position
-    ; set tail in head position
-    LDA HEAD_POSITION
+    ; set tail in future head position
+    LDA HEAD_NEXT_POSITION
     STA TAIL_POSITION
     RTS
     update_tail_position:
