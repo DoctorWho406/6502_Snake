@@ -13,8 +13,10 @@
 
 ; stored direction
 .define DIRECTION $0320
+; stored direction waiting to be validated
+.define DIRECTION_VALIDATION $0321
 ; timer for game over
-.define GAME_OVER_TIMER $0321
+.define GAME_OVER_TIMER $0322
 
 ; args for SubRoutine calculate_pos_by_distance
 .define POSITION_TO_CALCULATE  $0330
@@ -106,8 +108,16 @@ game:
     main_loop:
     ; ------------------------ READ INPUT ------------------------
     LDA INPUT
+    ; store input only if is not queal to 0 ...
     BEQ else_store_input
-    ; store input only if is not queal to 0
+    ; ... AND not opposito of current direction
+    STA DIRECTION_VALIDATION
+    STA DIRECTION_TO_INVERT
+    JSR get_opposite_direction
+    LDA DIRECTION_TO_INVERT
+    CMP DIRECTION
+    BEQ else_store_input
+    LDA DIRECTION_VALIDATION
     STA DIRECTION
     else_store_input:
     ; ----------------------- CHECK INPUT ------------------------
